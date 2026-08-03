@@ -35,6 +35,19 @@ cask "portaly" do
                    args: ["-cr", "#{appdir}/Portaly.app"]
   end
 
+  # Runs before `brew upgrade`/`brew uninstall` replace or remove
+  # Portaly.app. Without this, a running Portaly (and the separate,
+  # independently root-elevated gpvpn-agent process it spawns to run
+  # openconnect) is left completely untouched by the upgrade -- still
+  # holding the VPN tunnel and its DNS override, but now orphaned from the
+  # app files that just got replaced out from under it, with no tray icon
+  # left to reach it and disconnect. A normal quit AppleEvent (same as
+  # Cmd+Q) gives the app the chance to gracefully disconnect the tunnel and
+  # shut the agent down first (see gpvpn-gui's RunEvent::ExitRequested
+  # handler and gpvpn-agent's own SIGTERM handling, its last-resort
+  # safety net if this quit request is somehow missed).
+  uninstall quit: "com.tides.gpvpn"
+
   zap trash: [
     "~/Library/Application Support/com.tides.gpvpn",
     "~/Library/LaunchAgents/com.tides.gpvpn.plist",
