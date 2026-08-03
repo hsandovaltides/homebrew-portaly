@@ -32,8 +32,7 @@ cask "portaly" do
   # Developer ID + notarization would otherwise make unnecessary.
   postflight do
     system_command "/usr/bin/xattr",
-                   args: ["-cr", "#{appdir}/Portaly.app"],
-                   sudo: true
+                   args: ["-cr", "#{appdir}/Portaly.app"]
   end
 
   zap trash: [
