@@ -10,7 +10,7 @@ cask "portaly" do
   # Only Apple Silicon builds are published today (the release workflow
   # only runs on the macos-latest/arm64 GitHub Actions runner).
   depends_on arch: :arm64
-  depends_on macos: ">= :monterey"
+  depends_on macos: :monterey
   depends_on formula: "openconnect"
 
   app "Portaly.app"
