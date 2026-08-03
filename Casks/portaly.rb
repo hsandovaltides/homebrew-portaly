@@ -1,11 +1,11 @@
 cask "portaly" do
   version "0.1.1"
-  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+  sha256 "0717242f7ef9d4feb1024e64f61a33df79517c70aad662e482eaec7f4ca62347"
 
-  url "https://github.com/hsandovaltides/GlobalProtect-openconnect/releases/download/v#{version}/Portaly_#{version}_aarch64.dmg"
+  url "https://github.com/hsandovaltides/portaly-releases/releases/download/v#{version}/Portaly_#{version}_aarch64.dmg"
   name "Portaly"
   desc "Unofficial GlobalProtect VPN client, built on OpenConnect"
-  homepage "https://github.com/hsandovaltides/GlobalProtect-openconnect"
+  homepage "https://github.com/hsandovaltides/portaly-releases"
 
   # Only Apple Silicon builds are published today (the release workflow
   # only runs on the macos-latest/arm64 GitHub Actions runner).
