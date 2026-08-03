@@ -14,7 +14,6 @@ cask "portaly" do
   depends_on formula: "openconnect"
 
   app "Portaly.app"
-
   # Symlinks gpvpn-cli into Homebrew's bin dir -- without this it's only
   # reachable via the full path inside the .app bundle (Contents/MacOS/),
   # unlike gpvpn-agent/gpvpn-hipreport/gpvpn-auth, which are only ever
@@ -22,9 +21,24 @@ cask "portaly" do
   # by the user.
   binary "#{appdir}/Portaly.app/Contents/MacOS/gpvpn-cli"
 
+  # Portaly.app is only ad-hoc signed (no paid Apple Developer ID, so it
+  # can't be notarized). On Apple Silicon, Gatekeeper doesn't offer its
+  # usual "unidentified developer, open anyway" bypass for ad-hoc-signed
+  # code that carries the com.apple.quarantine flag Homebrew's download
+  # sets -- it instead refuses to launch at all, reporting the app as
+  # "damaged" (both from Finder and when exec'd directly, e.g. gpvpn-cli
+  # from a terminal hangs indefinitely in the OS's signature-validation
+  # path instead of failing). Stripping quarantine here is what a real
+  # Developer ID + notarization would otherwise make unnecessary.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-cr", "#{appdir}/Portaly.app"],
+                   sudo: true
+  end
+
   zap trash: [
-    "~/Library/LaunchAgents/com.tides.gpvpn.plist",
     "~/Library/Application Support/com.tides.gpvpn",
+    "~/Library/LaunchAgents/com.tides.gpvpn.plist",
     "~/Library/Saved Application State/com.tides.gpvpn.savedState",
   ]
 
