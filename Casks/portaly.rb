@@ -1,6 +1,6 @@
 cask "portaly" do
-  version "0.1.7"
-  sha256 "58b350041480e927543c6c863ccf9c18a71f277d35e7eda42f77dc699b8cbb33"
+  version "0.1.8"
+  sha256 "8117dd1f8e75e519a09abb17593ce811cd3e30c1ff3ac51befa5e316e38f354b"
 
   url "https://github.com/hsandovaltides/portaly-releases/releases/download/v#{version}/Portaly_#{version}_aarch64.dmg"
   name "Portaly"
